@@ -1,4 +1,17 @@
 {
+  "production": {
+    "username": "braian",
+    "password": "dmJ17C2Gc6MAzLqMEsD1OfnMo2CKM76l",
+    "database": "db_api_rest_8yq6",
+    "host": "oregon-postgres.render.com",
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
+  },
   "developmentPost": {
     "username": "postgres",
     "password": "postgre",
@@ -12,19 +25,6 @@
     "database": "db_api_rest",
     "host": "127.0.0.1",
     "dialect": "mysql"
-  },
-  "production": {
-    "username": "braian",
-    "password": "dmJ17C2Gc6MAzLqMEsD1OfnMo2CKM76l",
-    "database": "db_api_rest_8yq6",
-    "host": "oregon-postgres.render.com",
-    "dialect": "postgres",
-    "dialectOptions": {
-      "ssl": {
-        "require": true,
-        "rejectUnauthorized": false
-      }
-    }
   },
   "development3": {
     "username": "root",
