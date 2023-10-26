@@ -8,7 +8,9 @@
     "start": "node server.js",
     "createdb": "npx sequelize db:create",
     "migrate": "npx sequelize db:migrate",
-    "migrate-undo": "npx sequelize db:migrate:undo:all"
+    "migrate-undo": "npx sequelize db:migrate:undo:all",
+    "seed": "npx sequelize db:seed:all",
+    "seed-undo": "npx sequelize db:seed:undo:all"
   },
   "keywords": [],
   "author": "Braian Lopez",
