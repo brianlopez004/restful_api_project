@@ -14,14 +14,13 @@ const getAllUsers = async (req, res) => {
 
 //Funcion para obtener un usuario especifico
 const getUser = async (req, res) => {
+    let id = req.params.userId;
     try {
-        let id = req.params.userId;
-        const user = await userService.getUser(id)
-        res.status(200).send({ status: "OK", data: user })
+        const user = await userService.getUser(id);
+        res.status(200).send({ status: "OK", data: user });
     } catch (error) {
-        res.status(error.status || 500).send({ status: "FAILED", data: { error: error.message } });
+        res.status(error.status || 500).send({ status: "ERROR", data: { error: error.message } });
     }
-
 }
 
 //Funcion para crear un usuario especifico
@@ -61,12 +60,13 @@ const updateUser = async (req, res) => {
 
 //Funcion para eliminar un usuario 
 const deleteUser = async (req, res) => {
-    try {
-        let id = req.params.userId;
-        const deletedUser = await userService.deleteUser(id)
-        res.status(200).send({ status: "OK", data: deletedUser })
-    } catch (error) {
-        res.status(error.status || 500).send({ status: "FAILED", data: { error: error.message } });
+    const id = req.params.userId;
+    const deleteUser = await userService.deleteUser(id);
+
+    if (deleteUser) {
+        res.status(200).send({ status: "OK", data: deleteUser });
+    } else {
+        res.status(400).send({ status: "FAILED", data: null });
     }
 }
 
