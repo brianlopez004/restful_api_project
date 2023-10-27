@@ -14,19 +14,20 @@ const getAllUsers = async (req, res) => {
 
 //Funcion para obtener un usuario especifico
 const getUser = async (req, res) => {
-    let id = req.params.userId;
     try {
-        const user = await userService.getUser(id);
-        res.status(200).send({ status: "OK", data: user });
+        let id = req.params.UserId;
+        const user = await userService.getUser(id)
+        res.status(200).send({ status: "OK", data: user })
     } catch (error) {
-        res.status(error.status || 500).send({ status: "ERROR", data: { error: error.message } });
+        res.status(error.status || 500).send({ status: "FAILED", data: { error: error.message } });
     }
+
 }
 
 //Funcion para crear un usuario especifico
 const createUser = async (req, res) => {
     try {
-        const { name, email, phone, password } = req.body;
+        const { name, email, password, phone } = req.body;
         const missingFields = [];
 
         if (!name) missingFields.push('name');
@@ -39,7 +40,7 @@ const createUser = async (req, res) => {
             return res.status(400).send({ status: 'failed', data: { error: errorMessage } });
         }
 
-        const createdUser = await userService.createUser(name, email, phone, password);
+        const createdUser = await userService.createUser(name, email, password, phone);
         res.status(200).send({ status: "OK", data: createdUser })
     } catch (error) {
         res.status(error.status || 500).send({ status: "FAILED", data: { error: error.message } });
@@ -49,9 +50,9 @@ const createUser = async (req, res) => {
 //Funcion para modificar un usuario
 const updateUser = async (req, res) => {
     try {
-        let id = req.params.userId;
-        let { name, email, phone, password } = req.body;
-        const updatedUser = await userService.updateUser(id, name, email, phone, password);
+        let id = req.params.UserId;
+        let { name, email, password, phone } = req.body;
+        const updatedUser = await userService.updateUser(id, name, email, password, phone);
         res.status(200).send({ status: "OK", data: updatedUser })
     } catch (error) {
         res.status(error.status || 500).send({ status: "FAILED", data: { error: error.message } });
@@ -60,13 +61,12 @@ const updateUser = async (req, res) => {
 
 //Funcion para eliminar un usuario 
 const deleteUser = async (req, res) => {
-    const id = req.params.userId;
-    const deleteUser = await userService.deleteUser(id);
-
-    if (deleteUser) {
-        res.status(200).send({ status: "OK", data: deleteUser });
-    } else {
-        res.status(400).send({ status: "FAILED", data: null });
+    try {
+        let id = req.params.UserId;
+        const deletedUser = await userService.deleteUser(id)
+        res.status(200).send({ status: "OK", data: deletedUser })
+    } catch (error) {
+        res.status(error.status || 500).send({ status: "FAILED", data: { error: error.message } });
     }
 }
 
