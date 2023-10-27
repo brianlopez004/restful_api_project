@@ -30,7 +30,7 @@ const updateCategory = async (req, res) => {
     let id = req.params.categoryId;
     let { name } = req.body;
 
-    const updatedCategory = await categoriService.updateCategory(id,name);
+    const updatedCategory = await categoriService.updateCategory(id, name);
     if (updatedCategory) {
         res.status(201).send({ status: "OK", data: updatedCategory })
     } else
