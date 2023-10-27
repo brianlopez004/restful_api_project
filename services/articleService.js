@@ -1,17 +1,17 @@
 const db = require('../models')
 
-const getAllArticles = async()=>{
+const getAllArticles = async () => {
     try {
         let Articles = await db.Article.findAll({
             //Con esta opcion permitimos mostrar los articulos con la imformacion del usuario
-            include:{
+            include: {
                 model: db.User,
                 required: true,
                 as: "User",
-                attributes: ["id" ,"name", "email"]
+                attributes: ["id", "name", "email"]
             },
             attributes: {
-                exclude: ['createdAt','updatedAt']
+                exclude: ['createdAt', 'updatedAt']
             },
             // include: ["categories"]
         })
@@ -21,16 +21,16 @@ const getAllArticles = async()=>{
     }
 }
 
-const getArticle = async (id) =>{
+const getArticle = async (id) => {
     try {
         let Article = await db.Article.findByPk(id)
         return Article;
     } catch (error) {
-        throw {status:500, message: error.message || "Failed to get the article"}
+        throw { status: 500, message: error.message || "Failed to get the article" }
     }
 }
 
-const createArticle = async (title,content,UserId) =>{
+const createArticle = async (title, content, UserId) => {
     try {
         let newArticle = await db.Article.create({
             title,
@@ -38,37 +38,37 @@ const createArticle = async (title,content,UserId) =>{
             UserId
         });
         if (newArticle) {
-            const categories = [1,2,3]
+            const categories = [1, 2, 3]
             await newArticle.setCategories(categories)
         }
-        return  newArticle;
+        return newArticle;
     } catch (error) {
         return error.message || "Article could not be created"
     }
 }
-const updateArticle = async (id,title,content,UserId) =>{
+const updateArticle = async (id, title, content, UserId) => {
     try {
         let updatedArticle = await db.Article.update({
             title,
             content,
             UserId
         },
-        {
-            where: {
-                id,
+            {
+                where: {
+                    id,
+                }
             }
-        }
         );
         return updatedArticle;
     } catch (error) {
-            
+
     }
 }
 
 const deleteArticle = async (id) => {
     try {
         const deletedArticle = await db.Article.destroy({
-            where:{
+            where: {
                 id,
             }
         })
