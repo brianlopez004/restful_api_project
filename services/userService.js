@@ -5,7 +5,7 @@ const getAllUsers = async () => {
         let users = await db.User.findAll();
         return users;
     } catch (error) {
-        throw {status: 500, message: error.message || "failed load users"};
+        throw { status: 500, message: error.message || "failed load users" };
     }
 }
 
@@ -14,7 +14,7 @@ const getUser = async (id) => {
         let user = await db.User.findByPk(id)
         return user
     } catch (error) {
-        throw {status: 500, message: error.message || "failed to get user"};
+        throw { status: 500, message: error.message || "failed to get user" };
     }
 }
 
@@ -28,7 +28,7 @@ const createUser = async (name, email, phone, password) => {
         });
         return newUser;
     } catch (error) {
-        throw {status: 400, message: error.message || "failed to create user"};
+        throw { status: 400, message: error.message || "failed to create user" };
     }
 }
 
@@ -47,20 +47,20 @@ const updateUser = async (id, name, email, phone, password) => {
             });
         return updatedUser;
     } catch (error) {
-        throw {status: 500, message: error.message || "failed to update user"};
+        throw { status: 500, message: error.message || "failed to update user" };
     }
 }
 
 const deleteUser = async (id) => {
     try {
-        let deletedUser = await db.User.destroy({
+        const deletedUser = await db.User.destroy({
             where: {
                 id,
             }
         });
-        return deletedUser
+        return deletedUser;
     } catch (error) {
-        throw {status: 500, message: error.message || "failed to delete user"};
+        return error.message || "User could not be deleted";
     }
 }
 
