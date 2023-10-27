@@ -23,8 +23,8 @@ const createUser = async (name, email, phone, password) => {
         let newUser = await db.User.create({
             name,
             email,
-            phone,
-            password
+            password,
+            phone
         });
         return newUser;
     } catch (error) {
@@ -32,13 +32,13 @@ const createUser = async (name, email, phone, password) => {
     }
 }
 
-const updateUser = async (id, name, email, phone, password) => {
+const updateUser = async (id, name, email, password, phone) => {
     try {
         let updatedUser = await db.User.update({
             name,
             email,
-            phone,
-            password
+            password,
+            phone
         },
             {
                 where: {
@@ -53,14 +53,14 @@ const updateUser = async (id, name, email, phone, password) => {
 
 const deleteUser = async (id) => {
     try {
-        const deletedUser = await db.User.destroy({
+        let deletedUser = await db.User.destroy({
             where: {
                 id,
             }
         });
-        return deletedUser;
+        return deletedUser
     } catch (error) {
-        return error.message || "User could not be deleted";
+        throw { status: 500, message: error.message || "failed to delete user" };
     }
 }
 
