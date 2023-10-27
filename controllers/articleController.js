@@ -23,18 +23,18 @@ const createArticle = async (req, res) => {
     const createdArticle = await articleService.createArticle(body.title, body.content, body.UserId);
     if (createdArticle) {
         res.status(201).send({ status: "OK", data: createdArticle })
-    }else
-        res.status(400).send({status:"FAILED" , data: createdArticle})
+    } else
+        res.status(400).send({ status: "FAILED", data: createdArticle })
 }
 const updateArticle = async (req, res) => {
     let id = req.params.ArticleId;
-    let {title, content,UserId} = req.body;
+    let { title, content, UserId } = req.body;
 
-    const updatedArticle = await articleService.updateArticle(id,title,content,UserId);
+    const updatedArticle = await articleService.updateArticle(id, title, content, UserId);
     if (updatedArticle) {
         res.status(201).send({ status: "OK", data: updatedArticle })
-    }else
-        res.status(400).send({status:"FAILED" , data: updatedArticle})
+    } else
+        res.status(400).send({ status: "FAILED", data: updatedArticle })
 }
 
 const deleteArticle = async (req, res) => {
@@ -42,8 +42,8 @@ const deleteArticle = async (req, res) => {
     const deletedArticle = await articleService.deleteArticle(id);
     if (deletedArticle) {
         res.status(201).send({ status: "OK", data: deletedArticle })
-    }else
-        res.status(400).send({status:"FAILED" , data: deletedArticle})
+    } else
+        res.status(400).send({ status: "FAILED", data: deletedArticle })
 }
 
 module.exports = {
